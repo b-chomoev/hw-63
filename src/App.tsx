@@ -16,7 +16,7 @@ const App = () => {
       <Container maxWidth='lg'>
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/add' element={<AddForm />}></Route>
+          <Route path='/new-post' element={<AddForm />}></Route>
           <Route path='/about' element={<About />}></Route>
           <Route path='/contacts' element={<Contacts />}></Route>
           <Route path='*' element={<Typography variant='h1'>Not Found</Typography>}></Route>
