@@ -7,6 +7,17 @@ const Home = () => {
 
   const fetchData = useCallback(async () => {
     const response: {data: IPostAPI} = await axiosAPI<IPostAPI>('blog.json');
+
+    if (response.data) {
+      const postsFromAPI: IPost[] = Object.keys(response.data).map(key => {
+        return {
+          ...response.data[key],
+          id: key,
+        };
+      });
+
+      setPosts(postsFromAPI);
+    }
     console.log(response.data);
   }, []);
 
