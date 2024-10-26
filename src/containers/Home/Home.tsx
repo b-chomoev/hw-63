@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import axiosAPI from '../../axiosAPI';
 import { IPost, IPostAPI } from '../../types';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -27,7 +29,25 @@ const Home = () => {
 
   return (
     <div>
-      Home
+      {posts.length === 0 ? <p>No posts yet</p> :
+        <>
+          {posts.map((post) => (
+            <Card sx={{ minWidth: 275, mt: 2 }}>
+              <CardContent>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                  {post.title}
+                </Typography>
+                <Typography variant="body2">
+                  {post.description}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" component={NavLink} to='/'>Edit</Button>
+              </CardActions>
+            </Card>
+          ))}
+        </>
+      }
     </div>
   );
 };
