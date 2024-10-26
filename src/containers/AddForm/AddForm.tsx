@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import { TextField, Typography, TextareaAutosize, Button } from '@mui/material';
 import { INewPostForm } from '../../types';
 import Grid from '@mui/material/Grid2';
+import axiosAPI from '../../axiosAPI';
+
+const initialState = {
+  title: '',
+  description: '',
+};
 
 const AddForm = () => {
-  const [newPost, setNewPost] = useState<INewPostForm>({
-    title: '',
-    description: '',
-  });
+  const [newPost, setNewPost] = useState<INewPostForm>(initialState);
 
-  const onSubmitForm = (e: React.FormEvent) => {
+  const onSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(newPost);
+
+    await axiosAPI.post('games.json', {...newPost});
+
+    setNewPost({...initialState});
+  };
+
+  const onChangeField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = e.target;
+    setNewPost(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
@@ -26,6 +40,7 @@ const AddForm = () => {
             name='title'
             variant="outlined"
             value={newPost.title}
+            onChange={onChangeField}
           />
         </Grid>
         <Grid size={12}>
@@ -35,6 +50,7 @@ const AddForm = () => {
             placeholder="Description"
             name='description'
             value={newPost.description}
+            onChange={onChangeField}
           />
         </Grid>
         <Grid size={12}>
