@@ -15,7 +15,7 @@ const AddForm = () => {
   const onSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await axiosAPI.post('games.json', {...newPost});
+    await axiosAPI.post('blog.json', {...newPost});
 
     setNewPost({...initialState});
   };
